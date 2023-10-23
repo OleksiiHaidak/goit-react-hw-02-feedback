@@ -15,7 +15,7 @@ export class App extends Component {
     bad: 0
   };
   
-  handleIncrement = (feedbackType) => {
+  onLeaveFeedback = (feedbackType) => {
     this.setState({ [feedbackType]: this.state[feedbackType] + 1 });
   };
 
@@ -32,17 +32,17 @@ export class App extends Component {
   };
 
   render() { 
-    const { good, neutral, bad } = this.state;
+    const {good, neutral, bad} = this.state;
     const totalFeedback = this.countTotalFeedback();
     return (
       <div className={css.mainContainer}>
         <Section title="Please leave feedback">
-          <FeedbackOptions
-            options={{ good, neutral, bad }}
-            onLeaveFeedback={this.handleIncrement}
+        <FeedbackOptions
+            options={Object.keys(this.state)}
+            onLeaveFeedback={this.onLeaveFeedback}
           />
         </Section>
-
+        
         <Section title="Statistics">
           {totalFeedback > 0 ? (
             <Statistics
